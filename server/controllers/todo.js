@@ -1,28 +1,34 @@
 const express = require('express');
-const { v4 } = require('uuid');
+const getDb = require('../model/db').getDb;
+const mongodb = require('mongodb');
 
 const router = express.Router();
 
-let itemList = [];
-
 router.get('/items', (req, res, next) => {
-    res.status(200).json({ items: itemList });
+    const db = getDb();
+    db.collection('items').find().toArray()
+        .then(result => {
+            res.status(200).json({ items: result });
+        })
+        .catch(err => console.log(err));
 });
 
 router.post('/add-item', (req, res, next) => {
-    const task = {
-        content: req.body.content,
-        id: v4()
-    }
-    itemList.unshift(task);
-    res.status(201).json({ items: itemList });
+    const db = getDb();
+    db.collection('items').insertOne({ content: req.body.content })
+        .then(result => {
+            res.status(201).json({ items: { _id: result.insertedId.toString(), content: req.body.content } });
+        })
+        .catch(err => console.log(err));
 });
 
 router.post('/delete-item', (req, res, next) => {
-    let index = itemList.map(item => item.id).indexOf(req.body.id);
-
-    itemList.splice(index, 1);
-    res.status(200).json({ items: itemList });
+    const db = getDb();
+    db.collection('items').deleteOne({ _id: new mongodb.ObjectId(req.body.id) })
+        .then(() => {
+            res.status(200).send();
+        })
+        .catch(err => console.log(err));
 });
 
 module.exports = router;

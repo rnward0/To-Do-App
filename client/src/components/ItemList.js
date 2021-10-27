@@ -5,8 +5,8 @@ import './styling/ItemList.css';
 const ItemList = ({ itemList: itemList, deleteItem: deleteItem}) => {
     return (
         <ul className="listContainer">
-            {itemList.map((item, index) => 
-                <Item key={index} id={item.id} item={item} deleteItem={deleteItem} />
+            {itemList.map((item, index) =>
+                <Item key={index} item={item} deleteItem={deleteItem} />
             )}
         </ul>
     );

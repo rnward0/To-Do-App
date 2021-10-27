@@ -33,38 +33,46 @@ export default class App extends React.Component {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ content: content })
-    }
+    };
     fetch('http://localhost:8000/add-item', requestOptions)
       .then(res => {
         if(res.status !== 201) {
           throw new Error("Error adding to-do item");
         }
+        console.log(res);
         return res.json();
       })
       .then(res => {
+        console.log(res);
         this.setState({
-          itemList: res.items
+          itemList: [res.items, ...this.state.itemList]
         });
       })
       .catch(err => console.log(err));
   }
 
   deleteItem = id => {
+    console.log(this.state.itemList);
+    console.log(id);
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id: id })
-    }
+    };
     fetch('http://localhost:8000/delete-item', requestOptions)
       .then(res => {
         if(res.status !== 200) {
           throw new Error("Error deleting to-do item");
         }
-        return res.json();
+        return;
       })
-      .then(res => {
+      .then(() => {
+        let list = this.state.itemList;
+        let index = list.map(item => item._id).indexOf(id);
+        list.splice(index, 1);
+
         this.setState({
-          itemList: res.items
+          itemList: list
         });
       })
       .catch(err => console.log(err));
