@@ -39,12 +39,19 @@ export default class App extends React.Component {
         if(res.status !== 201) {
           throw new Error("Error adding to-do item");
         }
-        return res.json();
-      })
-      .then(res => {
-        this.setState({
-          itemList: res.items
-        });
+        fetch('http://localhost:8000/items')
+          .then(res => {
+            if(res.status !== 200) { 
+              throw new Error("Error fetching to-do items");
+            }
+            return res.json();
+          })
+          .then(res => {
+            this.setState({
+              itemList: res.items
+            });
+          })
+          .catch(err => console.log(err));
       })
       .catch(err => console.log(err));
   }
@@ -60,12 +67,19 @@ export default class App extends React.Component {
         if(res.status !== 200) {
           throw new Error("Error deleting to-do item");
         }
-        return res.json();
-      })
-      .then(res => {
-        this.setState({
-          itemList: res.items
-        });
+        fetch('http://localhost:8000/items')
+          .then(res => {
+            if(res.status !== 200) { 
+              throw new Error("Error fetching to-do items");
+            }
+            return res.json();
+          })
+          .then(res => {
+            this.setState({
+              itemList: res.items
+            });
+          })
+          .catch(err => console.log(err));
       })
       .catch(err => console.log(err));
   }
