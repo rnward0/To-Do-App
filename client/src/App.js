@@ -7,11 +7,13 @@ import HomePage from './HomePage';
 
 const App = () => {
     return(
-        <Router>
-            <Route path="/" exact component={Login} />
-            <Route path="/signup" component={SignUp} />
-            <Route path="/home" component={HomePage} />
-        </Router>
+        <div>
+            <Router>
+                <Route path="/" exact component={Login} />
+                <Route path="/signup" component={SignUp} />
+                <Route path="/home" component={HomePage} />
+            </Router>
+        </div>
     );
 };
 

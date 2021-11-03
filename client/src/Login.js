@@ -26,17 +26,17 @@ class Login extends Component {
         }
         return (
             <div>
-                <form class="login-form" novalidate>
-                    <div class ="form-control">
-                        <label for="email">E-Mail</label>
+                <form className="login-form" noValidate>
+                    <div className="form-control">
+                        <label htmlFor="email">E-Mail</label>
                         <input type="email" name="email" id="email" />
                     </div>
-                    <div class ="form-control">
-                        <label for="password">Password</label>
+                    <div className="form-control">
+                        <label htmlFor="password">Password</label>
                         <input type="password" name="password" id="password" />
                     </div>
-                    <button class="loginButton" type="submit" onClick={this.login}>Login</button>
-                    <button class="signupButton" type="submit" onClick={this.signup}>Signup</button>
+                    <button className="loginButton" type="submit" onClick={this.login}>Login</button>
+                    <button className="signupButton" type="submit" onClick={this.signup}>Signup</button>
                 </form>
             </div>
         );

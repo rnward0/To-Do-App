@@ -52,8 +52,6 @@ export default class HomePage extends React.Component {
   }
 
   deleteItem = id => {
-    console.log(this.state.itemList);
-    console.log(id);
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
