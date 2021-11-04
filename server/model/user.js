@@ -1,3 +1,7 @@
+//users: 
+//new-user@email.com pass
+
+
 const getDb = require('./db').getDb;
 
 class User {
